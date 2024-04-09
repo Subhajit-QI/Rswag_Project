@@ -63,7 +63,15 @@ RSpec.describe 'cars', type: :request do
     patch('update car') do
       response(200, 'successful') do
         let(:id) { '123' }
-
+        consumes 'application/json'        
+        parameter name: :car, in: :body, schema: {          
+          type: :object,          
+          properties: {            
+            name: { type: :string },            
+            model: { type: :string }          
+          },          
+          required: %w[name model]  
+        }
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {

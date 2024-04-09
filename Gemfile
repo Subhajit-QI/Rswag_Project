@@ -7,7 +7,8 @@ gem "rails", "~> 7.1.3", ">= 7.1.3.2"
 
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
-
+#add pry
+gem "pry"
 #add rspec-rails
 gem 'rspec-rails'
 #add rswag
