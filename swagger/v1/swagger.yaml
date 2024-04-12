@@ -85,6 +85,30 @@ paths:
       responses:
         '200':
           description: successful
+  "/cars/{id}/update_status":
+    put:
+      summary: Updates the status of a car
+      tags:
+      - Cars
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: status
+        in: query
+        description: New status value (0 or 1)
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: status updated
+        '400':
+          description: invalid status value
+        '404':
+          description: car not found
 servers:
 - url: http://{defaultHost}
   variables:

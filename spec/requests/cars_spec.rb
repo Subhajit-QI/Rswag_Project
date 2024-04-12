@@ -122,4 +122,24 @@ RSpec.describe 'cars', type: :request do
       end
     end
   end
+  
+  path '/cars/{id}/update_status' do
+    put 'Updates the status of a car' do
+      tags 'Cars'
+      parameter name: :id, in: :path, type: :integer, required: true
+      parameter name: :status, in: :query, type: :integer, description: 'New status value (0 or 1)', required: true
+
+      response '200', 'status updated' do
+        run_test!
+      end
+
+      response '400', 'invalid status value' do
+        run_test!
+      end
+
+      response '404', 'car not found' do
+        run_test!
+      end
+    end
+  end
 end
