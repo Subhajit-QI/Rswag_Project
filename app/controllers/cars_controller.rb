@@ -1,5 +1,5 @@
 class CarsController < ApplicationController
-  before_action :set_car, only: %i[ show update destroy ]
+  before_action :set_car, only: [:show, :update, :destroy, :update_status]
 
   # GET /cars
   def index
@@ -38,11 +38,24 @@ class CarsController < ApplicationController
     @car.destroy!
   end
 
+  # PUT /cars/:id/update_status
+  def update_status
+    # binding.pry
+    new_status = params[:status].to_i
+    unless [0, 1].include?(new_status)
+      render json: { error: "Invalid status value. Status must be either 0 or 1." }, status: :unprocessable_entity
+      return
+    end
+    @car.update(status: new_status)
+    render json: @car
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_car
       @car = Car.find(params[:id])
     end
+
 
     # Only allow a list of trusted parameters through.
     def car_params
